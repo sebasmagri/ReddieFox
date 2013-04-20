@@ -1,0 +1,44 @@
+html, body {
+    padding: 0;
+    margin: 0;
+    font-size: 10px;
+    background-color: #fff;
+}
+
+body {
+    height: 100%;
+    display: block;
+    overflow: hidden;
+}
+
+[data-type="list"] {
+    margin-top: 0.5rem;
+    padding: 0;
+}
+
+[data-type="list"] li {
+    overflow: hidden;
+    padding-left: 0.5rem;
+}
+
+[data-type="list"] li > a aside img {
+    height: 6rem;
+    width: 6rem;
+    margin: 0;
+}
+
+.subreddits[data-type="list"] li {
+    font-size: 1.8rem;
+    line-height: 6rem;
+}
+
+.links[data-type="list"] li p {
+    font-size: 1rem;
+    line-height: 1.1rem;
+}
+
+.links[data-type="list"] li p:first-of-type {
+    font-size: 1.5rem;
+    line-height: 1.7rem;
+    padding: 0;
+}

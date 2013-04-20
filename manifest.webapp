@@ -1,0 +1,19 @@
+{
+    "version": "0.0.1",
+    "name": "ReddieFox",
+    "description": "Very simple reddit.com Reader",
+    "launch_path": "/index.html",
+    "icons": {
+        "16": "/images/ReddieFox@16.png",
+        "48": "/images/ReddieFox@48.png",
+        "128": "/images/ReddieFox@128.png"           
+    },
+    "developer": {
+        "url": "http://bitbucket.org/sebasmagri/",
+    },
+    "installs_allowed_from": ["*"],
+    "locales": {
+        "description": "Lector sencillo para reddit.com",
+    },
+    "default_locale": "en",
+}

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="shared/style_unstable/lists.css">
+    <link rel="stylesheet" type="text/css" href="shared/style/action_menu.css">
+    <link rel="stylesheet" type="text/css" href="shared/style/input_areas.css">
+    <link rel="stylesheet" type="text/css" href="shared/style/buttons.css">
+    <link rel="stylesheet" type="text/css" href="shared/style/headers.css">
+    <link rel="stylesheet" type="text/css" href="css/app.css">
+    <title>ReddieFox</title>
+  </head>
+  <body role="application" class="">
+
+    <script type="text/x-handlebars" data-template-name="application">
+      <section role="region">
+        {{outlet header}}
+        <div role="main">
+          {{ outlet }}
+        </div>
+      </section>
+      {{view RF.MenuView}}
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="header">
+      <header>
+        {{#if back}}
+        <button {{action "toRoute" back}}><span class="icon icon-back">Go Back</span></button>
+        {{else}}
+        {{#if home}}
+        <button {{action "goHome"}}><span class="icon icon-back">Home</span></button>
+        {{/if}}
+        {{/if}}
+        <menu type="toolbar">
+          <button {{action "showMenu"}}><span class="icon icon-menu">Menu</span></button>
+        </menu>
+        <h1>{{unbound RF.app_name}} {{#if url}}<em>{{url}}</em>{{/if}}</h1>
+      </header>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="menu">
+      <form role="dialog" onsubmit="return false;" data-type="action" id="menu" hidden>
+        <header>Menu</header>
+        <menu>
+          <button {{action "menuToRoute" "new"}}>New Subreddit</button>
+          <button {{action "closeMenu"}}>Cancel</button>
+        </menu>
+      </form>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="new">
+      <header><h2>Bookmark a new Subreddit</h2></header>
+      {{#if errorMessage}}
+      <h3>{{errorMessage}}</h3>
+      {{/if}}
+      {{view Em.TextField placeholder="Subreddit Name" valueBinding="id"}}
+      <button type="submit" {{action "saveSubreddit" this}}>Save</button>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="subreddits">
+      {{outlet}}
+      <header><h2>Bookmarked Subreddits</h2></header>
+      <article data-type="list" class="subreddits">
+        <ul>
+          {{#each content}}
+          <li>{{#linkTo "subreddit" this}}/r/{{id}}{{/linkTo}}</li>
+          {{/each}}
+        </ul>
+      </article>
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="subreddit">
+      {{#if loaded}}
+      {{#if header_title}}
+      <header>
+        <h2>{{header_title}}</h2>
+      </header>
+      {{else}}
+      <header>
+        <h2>{{markdown description}}</h2>
+      </header>
+      {{/if}}
+      <article data-type="list" class="links">
+        <ul>
+          {{#each links}}
+          <li>
+            {{#if thumbnail}}
+            <aside><img {{bindAttr src="thumbnail"}}></aside>
+            {{/if}}
+            <p>{{title}}</p>
+            <p>
+              <time datetime="{{created}}">{{tsFromNow created}}</time>
+              Score: {{score}}. By: {{author}}.
+            </p>
+          </li>
+          {{/each}}
+        </ul>
+      </article>
+      {{else}}
+      <span>Loading...</span>
+      {{/if}}
+    </script>
+
+    <script src="js/libs/jquery-1.9.1.min.js"></script>
+    <script src="js/libs/jquery.indexeddb.js"></script>
+    <script src="js/libs/handlebars-1.0.10.js"></script>
+    <script src="js/libs/ember-1.0.0-rc2.js"></script>
+    <script src="js/libs/moment-2.0.0.min.js"></script>
+    <script src="js/libs/showdown.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
