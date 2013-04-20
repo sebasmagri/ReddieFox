@@ -9,11 +9,8 @@
         "128": "/images/ReddieFox@128.png"
     },
     "developer": {
+        "name": "Sebastian Magri",
         "url": "http://bitbucket.org/sebasmagri/"
     },
     "installs_allowed_from": ["*"],
-    "locales": {
-        "description": "Lector sencillo para reddit.com"
-    },
-    "default_locale": "en"
 }
