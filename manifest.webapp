@@ -12,5 +12,5 @@
         "name": "Sebastian Magri",
         "url": "http://bitbucket.org/sebasmagri/"
     },
-    "installs_allowed_from": ["*"],
+    "installs_allowed_from": ["*"]
 }
