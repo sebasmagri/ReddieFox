@@ -39,8 +39,8 @@
                     subr.set('links', links);
                     subr.set('loaded', true);
                 });
-
-            $.getJSON(RF.redditURL + this.get('url') + '/about.json?jsonp=?')
+            
+            RF.Subreddit.about(this.get('url'))
                 .then(function(response) {
                     for (var key in response.data) {
                         if (!subr.get(key)) {
@@ -52,6 +52,9 @@
     });
 
     RF.Subreddit.reopenClass({
+        about: function (url) {
+            return $.getJSON(RF.redditURL + url + '/about.json?jsonp=?');
+        },
         find: function(id) {
             var retVal = id ? RF.Subreddit.create() : Em.A();
             if (!id) {
@@ -100,18 +103,33 @@
     });
 
     RF.NewController = Em.ObjectController.extend({
-        id: '',
+        subredditName: '',
         home: true,
         title: 'New',
         errorMessage: '',
         saveSubreddit: function () {
             var c = this;
-            if (c.get('id') !== '') {
-                RF.db.objectStore('subreddit')
-                    .put({id: c.id})
-                    .done(function () {
-                        c.transitionToRoute(RF.homeRoute);
-                    });
+            var subredditName = c.get('subredditName');
+            if (subredditName) {
+                RF.Subreddit.about('/r/' + subredditName)
+                    .then(function (response) {
+                        var sr = response.data;
+                        RF.db.objectStore('subreddit')
+                            .get(sr.id)
+                            .done(function (result, e) {
+                                if (!result) {
+                                    RF.db.objectStore('subreddit')
+                                        .add(sr)
+                                        .done(function () {
+                                            c.transitionToRoute(RF.homeRoute);
+                                        })
+                                        .fail(function () { c.set('errorMessage', 'An error ocurred while trying to bookmark the given Subreddit');});
+                                } else {
+                                    c.set('errorMessage', 'The Subreddit already exists');
+                                }
+                            });
+                    })
+                    .fail(function () { c.set('errorMessage', 'An error ocurred while trying to bookmark the given Subreddit');});
             } else {
                 c.set('errorMessage', 'You need to supply a Subreddit name');
             }

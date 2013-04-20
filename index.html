@@ -54,7 +54,7 @@
       {{#if errorMessage}}
       <h3>{{errorMessage}}</h3>
       {{/if}}
-      {{view Em.TextField placeholder="Subreddit Name" valueBinding="id"}}
+      {{view Em.TextField placeholder="Subreddit Name" valueBinding="subredditName"}}
       <button type="submit" {{action "saveSubreddit" this}}>Save</button>
     </script>
 
@@ -64,7 +64,7 @@
       <article data-type="list" class="subreddits">
         <ul>
           {{#each content}}
-          <li>{{#linkTo "subreddit" this}}/r/{{id}}{{/linkTo}}</li>
+          <li>{{#linkTo "subreddit" this}}{{url}}{{/linkTo}}</li>
           {{/each}}
         </ul>
       </article>
