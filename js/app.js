@@ -30,8 +30,7 @@
         load: function () {
             if (this.get('loaded')) return;
             var subr = this;
-//            $.getJSON(RF.redditURL + this.get('url') + '/.json?jsonp=?')
-            $.getJSON('/test.json')
+            $.getJSON(RF.redditURL + this.get('url') + '/.json?jsonp=?')
                 .then(function(response) {
                     var links = Em.A();
                     response.data.children.forEach(function (child) {
@@ -41,8 +40,7 @@
                     subr.set('loaded', true);
                 });
 
-//            $.getJSON(RF.redditURL + this.get('url') + '/about.json?jsonp=?')
-            $.getJSON('/about.json')
+            $.getJSON(RF.redditURL + this.get('url') + '/about.json?jsonp=?')
                 .then(function(response) {
                     for (var key in response.data) {
                         if (!subr.get(key)) {
