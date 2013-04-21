@@ -90,7 +90,7 @@
             {{/if}}
             <p>{{title}}</p>
             <p>
-              <time datetime="{{created}}">{{tsFromNow created}}</time>
+              <time {{bindAttr datetime="isoCreated"}}>{{tsFromNow created}}</time>
               Score: {{score}}. By: {{author}}.
             </p>
           </li>

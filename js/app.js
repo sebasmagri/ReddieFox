@@ -20,7 +20,11 @@
     });
 
     // Models
-    RF.Link = Em.Object.extend();
+    RF.Link = Em.Object.extend({
+        isoCreated: function () {
+            return moment(new Date(this.get('created')*1000)).format();
+        }.property('created')
+    });
 
     RF.Comment = Em.Object.extend();
 
