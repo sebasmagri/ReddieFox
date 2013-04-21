@@ -95,12 +95,7 @@
         }
     });
 
-    RF.ApplicationController = Em.Controller.extend({
-        currentPathDidChange: function() {
-            path = this.get('currentPath');
-            console.log('path changed to: ', path);
-        }.observes('currentPath')
-    });
+    RF.ApplicationController = Em.Controller.extend();
 
     RF.NewController = Em.ObjectController.extend({
         subredditName: '',
